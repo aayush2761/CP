@@ -71,38 +71,49 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 
+//Constants
+vector <ll> primes;
+vector <bool> is_prime;
+
+// Mathematical functions
+void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
+void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
+ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
+ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
+ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
+ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
+ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
+//To find modulo inverse, call powermod(A,M-2,M)
+//ll fact[1000004], modinv[1000004];
+//void precomp() { modinv[0] = fact[0] = 1; for (ll i = 1; i <= 1000000; i++) fact[i] = (fact[i - 1] * i) % M, modinv[i] = powermod(fact[i], M - 2,M); }
+//ll ncr(ll n, ll r) { if (n < 0 || r < 0 || r > n) return 0; ll numo = fact[n]; return (((numo * modinv[r]) % M) * modinv[n - r]) % M; }
+//For ncr just call ncr(num,deno)
+
 
 int32_t main()
 {
     fastio()
     auto solve = [&] () {
-        inint(n); 
-        vl v(n);
-        unordered_map<double, ll> mp;
-
-        for (auto &it : v) {
-            cin >> it;
-            mp[it] += 1;  // Storing frequency of elements
+        inint(n);
+        inint(q);
+        vi v(n);
+        cin>>v;
+        // code 
+        vi pref(n+1,0);
+        foreach(i,1,n+1,1){
+            pref[i]+=pref[i-1]+v[i-1];
         }
-
-        double temp = accumulate(v.begin(), v.end(), 0LL); // Sum of elements
-
-        // if ((2 * temp) % n != 0) {  
-        //     out(0)
-        //     return;
-        // }
-
-        double req = (2 * temp) / n;
-        ll res = 0;
-
-        for (int i = 0; i < n; ++i) {
-            double a1 = v[i];
-            double a2 = req - a1;
-            if (mp.count(a2)) res += mp[a2];
-            if (a1 == a2) res -= 1;
+        // cout<<pref<<endl;
+        int total= accumulate(all(v),0);
+        while(q--){
+            inint(left);
+            inint(right);
+            inint(k);
+            int temp= total + (right-left+1)*k- (pref[right]-pref[left-1]);
+            if(temp&1)py;
+            else pn;
         }
-
-        out(res / 2)
     };
 
     int t;
