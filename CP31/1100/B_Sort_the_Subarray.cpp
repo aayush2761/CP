@@ -90,45 +90,33 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 //ll ncr(ll n, ll r) { if (n < 0 || r < 0 || r > n) return 0; ll numo = fact[n]; return (((numo * modinv[r]) % M) * modinv[n - r]) % M; }
 //For ncr just call ncr(num,deno)
 
-
+// Question padh lo sir pls
+// Constriants bhi dekh lo sir pls
+// Have trust bhai best approach yhi hai
+// aur sir shortcut ke chakkar mein **** mt lgwao wrna.....!!
 
 int32_t main()
 {
     fastio()
     auto solve = [&] () {
-        inll(n)
-        string s = to_string(n);
-        int res = 1e9; // large initial value
-int m = s.size();
-
-for (int j = m - 1; j > 0; j--) {
-    int temp = 0, count = 0;
-    if (s[j] == '0') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '0' && s[i] != '5') {
-            i--;
-            count++;
+        inint(n)
+        vi v1(n), v2(n);
+        cin>>v1;
+        cin>>v2;
+        //code 
+        int maxLength=0;
+        
+        int i=0;
+        while(i<n){
+            int count=1;
+            while(i>0 && i<n && v2[i-1]<=v2[i]){
+                count++;
+                i++;
+            }
+            maxLength=max(maxLength, count);
+            i++;
         }
-        if (i >= 0 && (s[i] == '0' || s[i] == '5')) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-    else if (s[j] == '5') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '2' && s[i] != '7') {
-            i--;
-            count++;
-        }
-        if (i >= 0) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-}
-if (res == 1e9) out(0)
-else out(res)
-
+        
     };
 
     int t;

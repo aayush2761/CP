@@ -91,44 +91,37 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 //For ncr just call ncr(num,deno)
 
 
-
 int32_t main()
 {
     fastio()
     auto solve = [&] () {
-        inll(n)
-        string s = to_string(n);
-        int res = 1e9; // large initial value
-int m = s.size();
+        inint(n)
+        inint(k)
+//auto check = [&](int mid ) -> bool{
+ //
+//};
+        instr(s)
+        unordered_map<char,int>mp;
+        for(auto it : s)mp[it]++;
+        int res=0;
+        for (char c = 'a'; c <= 'z'; ++c) {
+            char upper = c - 32;
+            int lowerCount = mp[c];
+            int upperCount = mp[upper];
+            int x = min(lowerCount, upperCount);
+            int y = max(lowerCount, upperCount);
 
-for (int j = m - 1; j > 0; j--) {
-    int temp = 0, count = 0;
-    if (s[j] == '0') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '0' && s[i] != '5') {
-            i--;
-            count++;
-        }
-        if (i >= 0 && (s[i] == '0' || s[i] == '5')) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-    else if (s[j] == '5') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '2' && s[i] != '7') {
-            i--;
-            count++;
-        }
-        if (i >= 0) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-}
-if (res == 1e9) out(0)
-else out(res)
+            res += x;
 
+            int remaining = y - x;
+            int add = min(remaining / 2, k);
+            res += add;
+            k -= add;
+
+            mp[c] = 0;
+            mp[upper] = 0;
+        }
+        out(res)
     };
 
     int t;

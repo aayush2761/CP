@@ -91,44 +91,30 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 //For ncr just call ncr(num,deno)
 
 
-
 int32_t main()
 {
     fastio()
     auto solve = [&] () {
-        inll(n)
-        string s = to_string(n);
-        int res = 1e9; // large initial value
-int m = s.size();
-
-for (int j = m - 1; j > 0; j--) {
-    int temp = 0, count = 0;
-    if (s[j] == '0') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '0' && s[i] != '5') {
-            i--;
-            count++;
+        inint(n)
+        inint(k)
+        instr(s)
+        auto check = [&](int k)-> bool{
+            int i=0;
+            int j= n-1;
+            while(i<k){
+                if(s[i]!=s[j])return false;
+                i++;
+                j--;
+            }
+            return true;
+        };
+        
+        // code 
+        int len = 2*k ;
+         if(len<n && check(k)==true)py;
+        else{
+           pn;
         }
-        if (i >= 0 && (s[i] == '0' || s[i] == '5')) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-    else if (s[j] == '5') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '2' && s[i] != '7') {
-            i--;
-            count++;
-        }
-        if (i >= 0) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-}
-if (res == 1e9) out(0)
-else out(res)
-
     };
 
     int t;
@@ -139,3 +125,5 @@ else out(res)
     }
     return 0;
 }
+
+

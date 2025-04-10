@@ -90,45 +90,69 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 //ll ncr(ll n, ll r) { if (n < 0 || r < 0 || r > n) return 0; ll numo = fact[n]; return (((numo * modinv[r]) % M) * modinv[n - r]) % M; }
 //For ncr just call ncr(num,deno)
 
-
+// Question padh lo sir pls
+// Constriants bhi dekh lo sir pls
+// Have trust bhai best approach yhi hai
+// aur sir shortcut ke chakkar mein **** mt lgwao wrna.....!!
 
 int32_t main()
 {
     fastio()
+    // auto solve = [&] () {
+    //     inint(n)
+    //     vi v(n);
+    //     cin>>v;
+    //     // code 
+    //     int res=0;
+    //     auto check = [&](int mid ) -> bool{
+    //         int count =0;
+    //         vi temp3=v;
+    //         while(true){
+    //             vi temp1, temp2;
+    //             int x= temp3.back();
+    //             for(int i=0;i<v.size();i++){
+    //                 if(temp3[i]<=x)temp1.push_back(temp3[i]);
+    //                 else temp2.push_back(temp3[i]);
+    //             }
+    //             vi temp4 = temp1;
+    //             temp4.insert(temp4.end(), temp2.begin(), temp2.end());
+    //             if(temp4!=temp3){
+    //                 count++;
+    //                 temp3=temp4;
+    //             }
+    //             else break;
+    //             if(count>=mid) return true;
+    //         }
+    //         return false;
+            
+    //     };
+    //     int low=0, high = 1e6;
+    //     while(low<=high){
+    //         int mid= low  + (high-low) /2;
+    //         if(check(mid)){
+    //             res=mid;
+    //             low=mid+1;
+    //         }
+    //         else high = mid-1;
+    //     }
+    //     out(res)
+
+    // };
     auto solve = [&] () {
-        inll(n)
-        string s = to_string(n);
-        int res = 1e9; // large initial value
-int m = s.size();
-
-for (int j = m - 1; j > 0; j--) {
-    int temp = 0, count = 0;
-    if (s[j] == '0') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '0' && s[i] != '5') {
-            i--;
-            count++;
+        inint(n)
+        vi v(n);
+        cin>>v;
+        
+        int mx = v.back();  // last element
+        int res = 0;
+        for(int i = n-1; i >= 0; i--) {
+            if(v[i] > mx) {
+                mx = v[i];
+                res++;
+            }
         }
-        if (i >= 0 && (s[i] == '0' || s[i] == '5')) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-    else if (s[j] == '5') {
-        int i = j - 1;
-        while (i >= 0 && s[i] != '2' && s[i] != '7') {
-            i--;
-            count++;
-        }
-        if (i >= 0) {
-            temp = m - j - 1 + count;
-            res = min(res, temp);
-        }
-    }
-}
-if (res == 1e9) out(0)
-else out(res)
-
+        
+        out(res);
     };
 
     int t;
